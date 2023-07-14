@@ -93,7 +93,15 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	
 }
+.login {
+	text-decoration: none;
+}
+.login:hover{
+	color: #B1663C;
+}
+
 
 li:hover {
 	color: #B1663C;
@@ -185,4 +193,13 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
+/***** Login page ******/
+
+.connexionForm{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 
