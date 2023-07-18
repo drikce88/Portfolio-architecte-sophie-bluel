@@ -1,10 +1,10 @@
-// Effectuer une requête GET pour récupérer les travaux (works) depuis l'API
+// Effectuer une requête GET pour récupérer les travaux depuis l'API
 fetch('http://localhost:5678/api/works')
   .then(response => response.json())
   .then(data => {
     const gallery = document.querySelector('#portfolio .gallery');
 
-    // Parcourir les travaux (works)
+    // Parcourir les travaux 
     data.forEach(work => {
       // Exclure le travail de l'abat-jour "Abajour Tahina"
       if (work.title !== 'Abajour Tahina') {
@@ -17,7 +17,7 @@ fetch('http://localhost:5678/api/works')
     console.error('Une erreur s\'est produite lors de la récupération des travaux :', error);
   });
 
-// Fonction pour créer dynamiquement un élément HTML <figure> pour un travail (work)
+// Fonction pour créer dynamiquement un élément HTML <figure>
 function createWorkFigure(work) {
   const figure = document.createElement('figure');
 
