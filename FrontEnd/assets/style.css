@@ -201,5 +201,19 @@ footer nav ul {
 	flex-direction: column;
 	align-items: center;
 }
+.connexionForm h1{
+	color:  #1D6154;
+}
+.connexionForm h2{
+	color: black;
+	font-weight: 500;
+	font-size: 14px;
+}
+.connexionForm input{
+	width: 379px;
+	height: 51px;
+}
+
+
 
 
