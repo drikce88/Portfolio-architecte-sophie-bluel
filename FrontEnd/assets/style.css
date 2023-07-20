@@ -93,7 +93,11 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 	
+}
+nav li a {
+	color: black;
 }
 .login {
 	text-decoration: none;
@@ -147,6 +151,7 @@ li:hover {
 	border-radius: 60px;
 	background-color: white;
 	color: #1D6154;
+	cursor: pointer;
 }
 .filter-btn:active{
 	background-color: #1D6154;
@@ -212,6 +217,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
