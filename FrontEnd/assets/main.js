@@ -1,18 +1,22 @@
-// Fonction pour filtrer les travaux par catégorie
-function filterWorks(category) {
-  const gallery = document.querySelector('#portfolio .gallery');
-  const figures = gallery.querySelectorAll('figure');
+// Effectuer une requête GET pour récupérer les travaux depuis l'API
+fetch('http://localhost:5678/api/works')
+  .then(response => response.json())
+  .then(data => {
+    const gallery = document.querySelector('#portfolio .gallery');
 
-  figures.forEach(figure => {
-    const figureCategory = figure.getAttribute('data-category');
+    // Parcourir les travaux
+    data.forEach(work => {
+      const figure = createWorkFigure(work);
+      gallery.appendChild(figure);
+    });
 
-    if (category === 'all' || figureCategory === category) {
-      figure.style.display = 'block';
-    } else {
-      figure.style.display = 'none';
-    }
+    // Afficher tous les travaux par défaut
+    filterWorks('all');
+  })
+  .catch(error => {
+    console.error('Une erreur s\'est produite lors de la récupération des travaux :', error);
   });
-}
+
 
 // Fonction pour créer dynamiquement un élément HTML <figure>
 function createWorkFigure(work) {
@@ -32,13 +36,29 @@ function createWorkFigure(work) {
   return figure;
 }
 
+// Fonction pour filtrer les travaux par catégorie
+function filterWorks(category) {
+  const gallery = document.querySelector('#portfolio .gallery');
+  const figures = gallery.querySelectorAll('figure');
+
+  figures.forEach(figure => {
+    const figureCategory = figure.getAttribute('data-category');
+
+    if (category === 'all' || figureCategory === category) {
+      figure.style.display = 'block';
+    } else {
+      figure.style.display = 'none';
+    }
+  });
+}
+
+
+
 // Récupérer les catégories depuis l'API
 fetch('http://localhost:5678/api/categories')
   .then(response => response.json())
   .then(categories => {
     const filterButtons = document.querySelector('#portfolio #filters');
-
-    
 
     // Créer le bouton "Tous"
     const allButton = document.createElement('button');
@@ -75,33 +95,9 @@ fetch('http://localhost:5678/api/categories')
     console.error('Une erreur s\'est produite lors de la récupération des catégories :', error);
   });
 
-// Effectuer une requête GET pour récupérer les travaux depuis l'API
-fetch('http://localhost:5678/api/works')
-  .then(response => response.json())
-  .then(data => {
-    const gallery = document.querySelector('#portfolio .gallery');
-
-    // Supprimer les travaux existants s'ils existent
-    while (gallery.firstChild) {
-      gallery.removeChild(gallery.firstChild);
-    }
-
-    // Parcourir les travaux
-    data.forEach(work => {
-      const figure = createWorkFigure(work);
-      gallery.appendChild(figure);
-    });
-
-    // Afficher tous les travaux par défaut
-    filterWorks('all');
-  })
-  .catch(error => {
-    console.error('Une erreur s\'est produite lors de la récupération des travaux :', error);
-  });
 
 
   // Connexion utilisateur
-
 function login() {
   const email = document.getElementById('emailInput').value;
   const password = document.getElementById('passwordInput').value;
