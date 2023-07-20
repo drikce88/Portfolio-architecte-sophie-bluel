@@ -38,10 +38,7 @@ fetch('http://localhost:5678/api/categories')
   .then(categories => {
     const filterButtons = document.querySelector('#portfolio #filters');
 
-    // Supprimer les filtres existants s'ils existent
-    while (filterButtons.firstChild) {
-      filterButtons.removeChild(filterButtons.firstChild);
-    }
+    
 
     // Créer le bouton "Tous"
     const allButton = document.createElement('button');
@@ -101,3 +98,40 @@ fetch('http://localhost:5678/api/works')
   .catch(error => {
     console.error('Une erreur s\'est produite lors de la récupération des travaux :', error);
   });
+
+
+  // Connexion utilisateur
+
+function login() {
+  const email = document.getElementById('emailInput').value;
+  const password = document.getElementById('passwordInput').value;
+
+  // Créez l'objet avec les données pour la requête POST
+  const data = {
+    email: email,
+    password: password,
+  };
+
+  // Effectuez la requête POST vers l'API
+  fetch('http://localhost:5678/api/users/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === 'user not found') {
+        // Afficher le message d'erreur si l'utilisateur n'est pas trouvé
+        alert('Identifiants incorrects. Veuillez réessayer.');
+      } else {
+        // Rediriger vers la page d'accueil si les identifiants sont corrects
+        window.location.href = 'index.html';
+      }
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la requête POST : ', error);
+    });
+}
+
