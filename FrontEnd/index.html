@@ -9,15 +9,21 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/996c5ba7dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="edition">
+	<i class="fa-regular fa-pen-to-square"></i>
+	<p>Mode édition</p>
+	<button class="publier">publier les changements</button>
+</div>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li><a class="login" href="login.html">login</a></li>
+			<a href="#portfolio"><li>projets</li></a>
+			<a href="#contact"><li>contact</li></a>
+			<a href="login.html"><li id="logout">login</li></a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -26,8 +32,12 @@
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<div class="modif">
+				<a><i class="fa-regular fa-pen-to-square"></i> modifier</a>
+			</div>
 		</figure>
 		<article>
+			</div>
 			<h2>Designer d'espace</h2>
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -35,9 +45,64 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div id="filters"></div>
-		<div class="gallery"></div>
+		<div class="modif-projets">
+			<h2>Mes Projets</h2>
+			<div class="modif">
+				<a href="#modal" class="js-modal"><i class="fa-regular fa-pen-to-square"></i> modifier</a>
+				
+				<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
+					<div class="modal-content js-modal-stop">
+						<button class="js-modal-close"><i class="fa-solid fa-x"></i></button>
+						<h3 id="title-modal" class="title-modal">Galerie photo</h3>
+						<div id="gallery-modal" class="gallery-modal"></div>
+						<hr></hr>
+						<div class="ajt-photo">
+							<a href="#add-modal">Ajouter une photo</a>
+							<p id="delete-gallery">Supprimer la galerie</p>
+						</div>
+					</div>
+				</aside>
+
+				<aside id="add-modal" class="modal" aria-hidden="true" role="dialog" style="display: none;">
+					<div class="modal-content-add js-modal-stop">
+						<div class="retourandclose">
+							<button class="js-modal-retour"><i class="fa-solid fa-arrow-left left"></i></button>
+							<button class="js-modal-close"><i class="fa-solid fa-x"></i></button>
+						</div>
+						<h3 class="title-modal">Ajout photo</h3>
+						<form action="" id="add-form">
+							<div class="add-img">
+								<i class="fa-regular fa-image icon-image"></i>
+								<label for="photo-file">+ Ajouter photo</label>
+								<input type="file" id="photo-file" accept=".jpg, .png" style="display: none;">
+								<p>jpg, png : 4 Mo max</p>
+								<div class="preview-container">
+									<img id="photo-preview" src="" alt="Aperçu de l'image" style="display: none;">
+								</div>
+							</div>
+							<span id="error-message" class="paragraph-error" style="color: red; display: none;"></span>
+							<div class="add-img-form">
+								<label for="titre">Titre</label>
+								<input type="text" name="titre" id="titre">
+								<label for="choix">Catégorie</label>
+								<select name="categorie" id="choix" form="formChoix">
+						  			<option value="vide">- Sélectionner une catégorie -</option>
+						  			<option value="1">Objets</option>
+						  			<option value="2">Appartements</option>
+						  			<option value="3">Hotel &amp; restaurants</option>
+								</select>
+							</div>
+							<hr>
+							<button type="submit" id="submit-button" class="valid" disabled>Valider</button>
+						</form>
+					</div>
+				</aside>
+			</div>
+		</div>
+		<div id="filter-container">
+		</div>
+		<div id="gallery" class="gallery">
+		</div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
