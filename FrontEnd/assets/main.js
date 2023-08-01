@@ -1,6 +1,9 @@
-let tokenValue = localStorage.token; // Récupère la valeur du token depuis le localStorage
-let works = []; // Déclaration et initialisation de la variable "works"
+// Récupère la valeur du token depuis le localStorage
+let tokenValue = localStorage.token; 
+// Déclaration et initialisation de la variable "works"
+let works = [];
 
+// Fonction pour afficher les œuvres dans la galerie et la galerie modale
 function renderWorks(works, categoryId = null) {
   const gallery = document.getElementById('gallery');
   const galleryModalElement = document.getElementById('gallery-modal');
@@ -62,6 +65,7 @@ const deleteWork = async (id) => {
   }
 };
 
+// Fonction pour supprimer toutes les œuvres de la galerie
 const deleteGallery = async () => {
   const works = await getWorks();
 
@@ -74,6 +78,7 @@ const deleteGallery = async () => {
 };
 document.getElementById('delete-gallery').addEventListener('click', deleteGallery);
 
+// Fonction pour afficher les filtres de catégories et filtrer les œuvres en fonction de la catégorie sélectionnée
 function renderFilters(categories, works) {
   const optionTous = document.createElement('button');
   optionTous.value = 'tous';
@@ -100,6 +105,7 @@ function renderFilters(categories, works) {
   });
 }
 
+// Fonction pour définir le bouton actif en fonction de la catégorie sélectionnée
 function setActiveButton(button) {
   const buttons = document.querySelectorAll('.filter-button');
   buttons.forEach(btn => {
@@ -146,12 +152,14 @@ if (localStorage.getItem('token')) {
   loginElement.textContent = 'login';
 }
 
+// Gestionnaire d'événement pour le clic sur le bouton de déconnexion (logout)
 loginElement.addEventListener('click', () => {
   if (localStorage.getItem('token')) {
     localStorage.removeItem('token');
     loginElement.textContent = 'Login';
   }
 });
+
 
 const editionDiv = document.querySelector('.edition');
 if (localStorage.getItem('token')) {
@@ -293,6 +301,7 @@ window.addEventListener('keydown', function (e) {
 const addImgContainer = document.querySelector('.add-img');
 const photoFileInput = document.getElementById('photo-file');
 
+// Gestionnaire d'événement pour le changement de la photo dans le formulaire d'ajout
 photoFileInput.addEventListener('change', (e) => {
   const selectedFile = e.target.files[0];
 
