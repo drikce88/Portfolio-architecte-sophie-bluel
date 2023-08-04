@@ -3,7 +3,7 @@ let tokenValue = localStorage.token;
 // Déclaration et initialisation de la variable "works"
 let works = [];
 
-// Fonction pour afficher les œuvres dans la galerie et la galerie modale
+// Fonction pour afficher les traveaux dans la galerie et la galerie modale
 function renderWorks(works, categoryId = null) {
   const gallery = document.getElementById('gallery');
   const galleryModalElement = document.getElementById('gallery-modal');
@@ -65,7 +65,7 @@ const deleteWork = async (id) => {
   }
 };
 
-// Fonction pour supprimer toutes les œuvres de la galerie
+// Fonction pour supprimer toutes les traveaux de la galerie
 const deleteGallery = async () => {
   const works = await getWorks();
 
@@ -78,7 +78,7 @@ const deleteGallery = async () => {
 };
 document.getElementById('delete-gallery').addEventListener('click', deleteGallery);
 
-// Fonction pour afficher les filtres de catégories et filtrer les œuvres en fonction de la catégorie sélectionnée
+// Fonction pour afficher les filtres de catégories et filtrer les traveaux en fonction de la catégorie sélectionnée
 function renderFilters(categories, works) {
   const optionTous = document.createElement('button');
   optionTous.value = 'tous';
@@ -117,7 +117,7 @@ function setActiveButton(button) {
   });
 }
 
-// Fonction pour récupérer les œuvres à partir de l'API
+// Fonction pour récupérer les traveaux à partir de l'API
 async function getWorks() {
   return await fetch('http://localhost:5678/api/works')
   .then(response => response.json())
@@ -366,9 +366,9 @@ function handleSubmit() {
       }
     })
     .then(function (newWork) {
-      // Ajouter la nouvelle œuvre à la liste des œuvres existantes
+      // Ajouter le nouveau travail à la liste des traveaux existant
       works.push(newWork);
-      // Afficher les œuvres mises à jour dans la galerie
+      // Afficher les traveaux mis à jour dans la galerie
       renderWorks(works);
 
       var retourButton = document.querySelector(".js-modal-retour");
