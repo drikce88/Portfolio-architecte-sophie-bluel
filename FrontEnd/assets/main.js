@@ -122,3 +122,29 @@ window.onload = () => {
   createFilterButtons();
   displayWorks(); // Afficher tous les travaux initialement
 };
+
+                                      // gestion de la modal
+
+//variable pour vérifier l'état de connexion
+
+let userLoggedIn = false;
+
+// Fonction pour afficher ou masquer les éléments de la modal en fonction de l'état de connexion
+function toggleModalElements() {
+  const modalContent = document.querySelector('.modal-content');
+  const ajouterPhotoButton = document.querySelector('.ajt-photo');
+  const deleteGalleryButton = document.querySelector('#delete-gallery');
+
+  if (userLoggedIn) {
+    modalContent.style.display = 'block';
+    ajouterPhotoButton.style.display = 'block';
+    deleteGalleryButton.style.display = 'block';
+  } else {
+    modalContent.style.display = 'none';
+    ajouterPhotoButton.style.display = 'none';
+    deleteGalleryButton.style.display = 'none';
+  }
+}
+
+// Appel de la fonction lorsque l'état de connexion change
+toggleModalElements();
