@@ -469,6 +469,85 @@ function resetAddImgContainer() {
 
 
 
+// Fonction pour afficher les travaux dans la modal
+async function displayWorksInModal() {
+  const works = await fetchWorks();
+  const galleryModal = document.getElementById('modal');
+  const galleryContent = galleryModal.querySelector('.gallery-modal');
+
+  // Vider le contenu existant de la modal
+  galleryContent.innerHTML = '';
+
+  works.forEach(work => {
+    const figure = document.createElement('figure');
+    figure.setAttribute('data-work-id', work.id); // Stockez l'ID du travail
+
+    const img = document.createElement('img');
+    img.src = work.imageUrl;
+    img.alt = work.title;
+    
+
+    const deleteButton = document.createElement('span');
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteButton.addEventListener('click', async () => {
+      await deleteWork(work.id);
+      // Mettre à jour la galerie après la suppression
+      displayWorksInModal();
+    });
+
+    figure.appendChild(img);
+    figure.appendChild(deleteButton);
+
+    galleryContent.appendChild(figure);
+  });
+}
+
+// Gestionnaire d'événements pour le bouton "Modifier"
+const editButton = document.querySelector('.js-modal');
+editButton.addEventListener('click', () => {
+  displayWorksInModal();
+});
+
+
+
+// Fonction pour supprimer un travail en utilisant une requête DELETE
+async function deleteWork(id) {
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokenValue}`
+      }
+    });
+
+    if (response.ok) {
+      console.log(`Œuvre avec l'ID ${id} supprimée avec succès`);
+    } else {
+      console.error('Erreur lors de la suppression de l\'œuvre');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'œuvre:', error);
+  }
+}
+
+
+
+// Ajoutez un gestionnaire d'événement pour supprimer toute la galerie
+const deleteGalleryButton = document.getElementById('delete-gallery');
+deleteGalleryButton.addEventListener('click', async () => {
+  const works = await fetchWorks();
+  for (const work of works) {
+    await deleteWork(work.id);
+  }
+  const updatedWorks = await fetchWorks();
+  renderWorks(updatedWorks);
+});
+
+
+
+
+
 
 
 
