@@ -2,6 +2,7 @@
 let tokenValue = localStorage.token; 
 
 let works = [];
+let updatedWorks = [];
 
 // Fonction pour récupérer les travaux depuis l'API
 async function fetchWorks() {
@@ -533,7 +534,7 @@ async function deleteWork(id) {
       // Supprimez le travail de la liste 'works'
       const index = works.findIndex(work => work.id === id);
       if (index !== -1) {
-        works.splice(index, 1);
+        works.splice(index, 0);
       }
       
       // Mettez à jour la galerie modale
