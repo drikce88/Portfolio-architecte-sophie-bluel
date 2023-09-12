@@ -1,6 +1,8 @@
 // Récupère la valeur du token depuis le localStorage
 let tokenValue = localStorage.token; 
 
+let works = [];
+
 // Fonction pour récupérer les travaux depuis l'API
 async function fetchWorks() {
   try {
@@ -314,10 +316,14 @@ photoFileInput.addEventListener('change', (e) => {
   addImgContainer.appendChild(imagePreview);
 });
 
-// Appele la fonction handleSubmit() lorsque le bouton "Valider" est cliqué
-document.getElementById("add-form").addEventListener("submit", function (e) {
+// Appelez la fonction handleSubmit() lorsque le bouton "Valider" est cliqué
+document.getElementById("add-form").addEventListener("submit", async function (e) {
   e.preventDefault();
   handleSubmit();
+
+  // Récupérez les travaux mis à jour après l'ajout de la nouvelle image
+  const updatedWorks = await fetchWorks();
+  displayWorksInModal(updatedWorks);
 });
 
 function handleSubmit() {
@@ -367,7 +373,7 @@ function handleSubmit() {
       // Ajouter le nouveau travail à la liste des traveaux existant
       works.push(newWork);
       // Afficher les traveaux mis à jour dans la galerie
-      renderWorks(works);
+      displayWorks(works);
 
       var retourButton = document.querySelector(".js-modal-retour");
       retourButton.click(); // Simuler un clic sur le bouton "Retour"
@@ -492,7 +498,7 @@ async function displayWorksInModal() {
     deleteButton.addEventListener('click', async () => {
       await deleteWork(work.id);
       // Mettre à jour la galerie après la suppression
-      displayWorksInModal();
+      displayWorksInModal(updatedWorks);
     });
 
     figure.appendChild(img);
@@ -523,8 +529,21 @@ async function deleteWork(id) {
 
     if (response.ok) {
       console.log(`Œuvre avec l'ID ${id} supprimée avec succès`);
+      
+      // Supprimez le travail de la liste 'works'
+      const index = works.findIndex(work => work.id === id);
+      if (index !== -1) {
+        works.splice(index, 1);
+      }
+      
+      // Mettez à jour la galerie modale
+      displayWorksInModal(works); // Mettez à jour la galerie modale avec la liste mise à jour des travaux
+      
+      // Mettez à jour la galerie principale
+      displayWorks(); // Mettez également à jour la galerie principale si nécessaire
     } else {
       console.error('Erreur lors de la suppression de l\'œuvre');
+      displayWorks();
     }
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'œuvre:', error);
@@ -541,7 +560,7 @@ deleteGalleryButton.addEventListener('click', async () => {
     await deleteWork(work.id);
   }
   const updatedWorks = await fetchWorks();
-  renderWorks(updatedWorks);
+  displayWorks(updatedWorks);
 });
 
 
